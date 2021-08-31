@@ -35,4 +35,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jpa'
     implementation 'com.h2database:h2'
 
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+
 }
