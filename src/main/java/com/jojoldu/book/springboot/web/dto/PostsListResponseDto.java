@@ -11,12 +11,14 @@ public class PostsListResponseDto {
     private String title;
     private String author;
     private LocalDateTime modifiedDate;
+    private String content;
 
-    public PostsListResponseDto(Long id, String title, String author, LocalDateTime modifiedDate) {
+    public PostsListResponseDto(Long id, String title, String author, LocalDateTime modifiedDate, String content) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.modifiedDate = modifiedDate;
+        this.content = content;
     }
 }
 
