@@ -48,10 +48,11 @@ public class IndexController {
     }
 
     @GetMapping("/posts/update/{id}")
-    public String PostsUpdate(@PathVariable Long id, Model model){
+    public String PostsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user){
 
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
+        model.addAttribute("userName", user.getName());
 
         try{
             List<CommentsListResponseDto> dto1 = commentsService.findAllDesc(id);

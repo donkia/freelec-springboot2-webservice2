@@ -20,7 +20,7 @@ var main = {
 
     CommentsSave : function(){
         var data = {
-            name : $('#author').val(),
+            name : $('#userName2').val(),
             content : $('#CommentContent').val(),
             number : $('#id').val()
         };
