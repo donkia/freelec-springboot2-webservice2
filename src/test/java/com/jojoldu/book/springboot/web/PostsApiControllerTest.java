@@ -5,7 +5,6 @@ import com.jojoldu.book.springboot.domain.posts.Posts;
 import com.jojoldu.book.springboot.domain.posts.PostsRepository;
 import com.jojoldu.book.springboot.service.posts.PostsUpdateRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
-import org.h2.server.web.WebApp;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,17 +14,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.put;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,6 +48,14 @@ public class PostsApiControllerTest {
     private WebApplicationContext context;
 
     private MockMvc mvc;
+
+
+    private final JavaMailSender mailSender;
+
+    public PostsApiControllerTest(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
 
     @Before
     public void setup(){
@@ -135,6 +144,22 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }
-    
+
+    /*
+    @Test
+    public void sendEmail() throws MessagingException {
+
+
+        MimeMessage m = mailSender.createMimeMessage();
+        MimeMessageHelper h = new MimeMessageHelper(m, "UTF-8");
+        h.setFrom("doncia@naver.com");
+        h.setTo("bhkim92@naver.com");
+        h.setSubject("테스트 메일");
+        h.setText("메일 테스트");
+        mailSender.send(m);
+
+    }
+
+     */
 
 }

@@ -1,8 +1,10 @@
 package com.jojoldu.book.springboot.web;
 
+import com.jojoldu.book.springboot.service.Comments.CommentsService;
 import com.jojoldu.book.springboot.service.EmailService;
 import com.jojoldu.book.springboot.service.posts.PostsService;
 import com.jojoldu.book.springboot.service.posts.PostsUpdateRequestDto;
+import com.jojoldu.book.springboot.web.dto.CommentsSaveRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import javax.mail.MessagingException;
 public class PostsApiController {
 
     private final PostsService postsService;
+    private final CommentsService commentsService;
 
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) throws MessagingException {
@@ -31,12 +34,21 @@ public class PostsApiController {
 
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id){
+
         return postsService.findById(id);
+
     }
 
     @DeleteMapping("/api/v1/posts/{id}")
     public Long delete (@PathVariable Long id){
         postsService.delete(id);
         return id;
+    }
+
+    @PostMapping("/api/v1/commentsPost")
+    public Long CommentSave(@RequestBody CommentsSaveRequestDto requestDto) throws MessagingException {
+        postsService.UpdateCommentCnt(requestDto.getNumber());
+        return commentsService.save(requestDto);
+
     }
 }

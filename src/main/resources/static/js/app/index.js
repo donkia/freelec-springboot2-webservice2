@@ -9,15 +9,42 @@ var main = {
            _this.update();
         });
 
+        $('#btn-commentsSave').on('click', function(){
+            _this.CommentsSave();
+        });
+
         $('#btn-save').on('click', function(){
             _this.save();
         });
     },
+
+    CommentsSave : function(){
+        var data = {
+            name : $('#author').val(),
+            content : $('#CommentContent').val(),
+            number : $('#id').val()
+        };
+        var id = $('#id').val();
+        $.ajax({
+            type:'POST',
+            url : '/api/v1/commentsPost',
+            dataType : 'json',
+            contentType : 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function(){
+            alert('댓글이 등록되었습니다');
+            window.location.href=id;
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        });
+    },
+
     save : function(){
         var data = {
             title : $('#title').val(),
             author : $('#author').val(),
-            content : $('#content').val()
+            content : $('#content').val(),
+            commentCnt : 0
         };
 
         $.ajax({

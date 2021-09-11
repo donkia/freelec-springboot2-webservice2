@@ -41,7 +41,7 @@ public class PostsService {
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
-                , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent()))
+                , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
                 .collect(Collectors.toList());
     }
 
@@ -51,5 +51,12 @@ public class PostsService {
         postsRepository.delete(post);
     }
 
+    @Transactional
+    public Long UpdateCommentCnt(Long id){
+        Posts post = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+        post.UpdateCommentCnt();
+        return id;
+    }
 
 }

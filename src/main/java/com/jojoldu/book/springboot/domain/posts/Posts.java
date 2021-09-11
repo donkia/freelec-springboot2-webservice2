@@ -4,6 +4,7 @@ import com.jojoldu.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -24,11 +25,15 @@ public class Posts extends BaseTimeEntity {
 
     private String author;
 
+    @ColumnDefault("0")
+    private Long commentCnt;
+
     @Builder
-    public Posts(String title, String content, String author) {
+    public Posts(String title, String content, String author, Long commentCnt) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.commentCnt = commentCnt;
     }
 
     public void update(String title, String content){
@@ -36,4 +41,20 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
     }
 
+    // 게시물에 댓글 갯수 카운트
+    public void UpdateCommentCnt(){
+        this.commentCnt ++;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", commentCnt=" + commentCnt +
+                '}';
+    }
 }
