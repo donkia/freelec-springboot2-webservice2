@@ -5,15 +5,13 @@ import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.domain.comments.Comments;
 import com.jojoldu.book.springboot.service.Comments.CommentsService;
 import com.jojoldu.book.springboot.service.posts.PostsService;
-import com.jojoldu.book.springboot.web.dto.CommentsListResponseDto;
-import com.jojoldu.book.springboot.web.dto.CommentsResponseDto;
-import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
+import com.jojoldu.book.springboot.web.dto.*;
+import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
 import lombok.RequiredArgsConstructor;
 import org.h2.engine.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -41,7 +39,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user){
         model.addAttribute("posts", postsService.findAllDesc());
-        System.out.println("posts : " + postsService.findAllDesc());
+        System.out.println("posts1 : " + postsService.findAllDesc());
         if(user!= null)
             model.addAttribute("userName", user.getName());
         return "index";
@@ -73,6 +71,34 @@ public class IndexController {
         return "posts-update";
     }
 
+    @GetMapping("/get/search")
+    //public  List<PostsListResponseDto> getSearch(@RequestParam("search") String search, Model model, @LoginUser SessionUser user){
+    public  String  getSearch(@RequestParam("search") String search,
+            @RequestParam("type") String type, Model model, @LoginUser SessionUser user){
+
+        System.out.println("requestDto : " + search +" , type : " + type);
+        List<PostsListResponseDto> posts = null;
+        // 아무 데이터도 안넘어왔을 때
+        if(search == null){
+            posts = postsService.findAllDesc();
+        }
+        else {
+            if(type.equals("content"))
+                posts = postsService.searchContentAllDesc(search);
+            else if(type.equals("title"))
+                posts = postsService.searchTitleAllDesc(search);
+            else if(type.equals("author"))
+                posts = postsService.searchAuthorAllDesc(search);
+        }
+
+        model.addAttribute("posts", posts);
+
+        if(user!= null)
+            model.addAttribute("userName", user.getName());
+        System.out.println("posts2 : " + posts.toString());
+
+        return "index";
+    }
 
 }
 

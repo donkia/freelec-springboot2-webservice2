@@ -16,6 +16,30 @@ var main = {
         $('#btn-save').on('click', function(){
             _this.save();
         });
+
+        $('#btn-search').on('click', function (){
+            _this.search();
+        });
+
+    },
+
+    search : function(){
+        /*var data = {
+            content : $('#search').val(),
+        };
+        */
+        var search = $('#search').val();
+        var type = $('#type').val();
+
+        $.ajax({
+            type:'GET',
+            url : '/get/search?search=' +search +'&type=' + type,
+          contentType : 'application/json; charset=utf-8'
+        }).done(function(data){
+            window.location.href='/get/search?search=' + search +'&type=' + type;
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        });
     },
 
     CommentsSave : function(){

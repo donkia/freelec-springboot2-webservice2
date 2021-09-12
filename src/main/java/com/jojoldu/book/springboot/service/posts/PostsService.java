@@ -59,4 +59,23 @@ public class PostsService {
         return id;
     }
 
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> searchContentAllDesc(String search){
+        return postsRepository.searchContentAllDesc(search).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> searchTitleAllDesc(String search){
+        return postsRepository.searchTitleAllDesc(search).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                .collect(Collectors.toList());
+    }
+
+    public List<PostsListResponseDto> searchAuthorAllDesc(String search){
+        return postsRepository.searchAuthorAllDesc(search).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                .collect(Collectors.toList());
+    }
 }
