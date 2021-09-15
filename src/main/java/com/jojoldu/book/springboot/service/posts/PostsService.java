@@ -41,7 +41,7 @@ public class PostsService {
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
-                , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt(), Posts.getHit()))
                 .collect(Collectors.toList());
     }
 
@@ -62,20 +62,40 @@ public class PostsService {
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> searchContentAllDesc(String search){
         return postsRepository.searchContentAllDesc(search).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
-                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt(), Posts.getHit()))
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> searchTitleAllDesc(String search){
         return postsRepository.searchTitleAllDesc(search).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
-                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt(), Posts.getHit()))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<PostsListResponseDto> searchAuthorAllDesc(String search){
         return postsRepository.searchAuthorAllDesc(search).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
-                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt()))
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt(), Posts.getHit()))
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> pagingfindAllDesc(int from, int to){
+        return postsRepository.pagingfindAllDesc(from, to).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
+                        , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt(), Posts.getHit()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Long updateHit(Long id){
+        Posts post = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+        post.updateHit();
+        return id;
+    }
+
+
+
+
 }

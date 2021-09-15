@@ -13,15 +13,17 @@ public class PostsSaveRequestDto {
     private String content;
     private String author;
     private Long commentCnt;
+    private Long hit;
 
     @Builder
 
-    public PostsSaveRequestDto(String title, String content, String author, Long commentCnt) {
+    public PostsSaveRequestDto(String title, String content, String author, Long commentCnt, Long hit) {
 
         this.title = title;
         this.content = content;
         this.author = author;
         this.commentCnt = commentCnt;
+        this.hit = hit;
     }
 
     public Posts toEntity(){
@@ -30,6 +32,7 @@ public class PostsSaveRequestDto {
                 .content(content)
                 .author(author)
                 .commentCnt(commentCnt)
+                .hit(0L)
                 .build();
     }
 }

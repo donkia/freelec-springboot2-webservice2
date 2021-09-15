@@ -20,4 +20,7 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("SELECT p from Posts p where p.author like concat('%', :search, '%') order by p.id desc")
     List<Posts> searchAuthorAllDesc(@Param("search") String search);
 
+    @Query("SELECT p from Posts p where rownum between :from and :to order by p.id")
+    List<Posts> pagingfindAllDesc(@Param("from") int from, @Param("to") int to);
+
 }

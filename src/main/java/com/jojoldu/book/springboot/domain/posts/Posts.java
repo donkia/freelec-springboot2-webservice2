@@ -25,15 +25,22 @@ public class Posts extends BaseTimeEntity {
 
     private String author;
 
+    //댓글수
     @ColumnDefault("0")
     private Long commentCnt;
 
+    //조회수
+    @ColumnDefault("0")
+    private Long hit;
+
+
     @Builder
-    public Posts(String title, String content, String author, Long commentCnt) {
+    public Posts(String title, String content, String author, Long commentCnt, Long hit) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.commentCnt = commentCnt;
+        this.hit = hit;
     }
 
     public void update(String title, String content){
@@ -47,6 +54,10 @@ public class Posts extends BaseTimeEntity {
 
     }
 
+    public void updateHit(){
+        this.hit ++;
+    }
+
     @Override
     public String toString() {
         return "Posts{" +
@@ -55,6 +66,7 @@ public class Posts extends BaseTimeEntity {
                 ", content='" + content + '\'' +
                 ", author='" + author + '\'' +
                 ", commentCnt=" + commentCnt +
+                ", hit=" + hit +
                 '}';
     }
 }

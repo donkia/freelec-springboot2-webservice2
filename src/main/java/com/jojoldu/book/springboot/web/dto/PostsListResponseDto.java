@@ -13,14 +13,16 @@ public class PostsListResponseDto {
     private LocalDateTime modifiedDate;
     private String content;
     private Long commentCnt;
+    private Long hit;
 
-    public PostsListResponseDto(Long id, String title, String author, LocalDateTime modifiedDate, String content, Long commentCnt) {
+    public PostsListResponseDto(Long id, String title, String author, LocalDateTime modifiedDate, String content, Long commentCnt, Long hit) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.modifiedDate = modifiedDate;
         this.content = content;
         this.commentCnt = commentCnt;
+        this.hit = hit;
     }
 
     @Override
@@ -32,6 +34,7 @@ public class PostsListResponseDto {
                 ", modifiedDate=" + modifiedDate +
                 ", content='" + content + '\'' +
                 ", commentCnt=" + commentCnt +
+                ", hit = " + hit +
                 '}';
     }
 }

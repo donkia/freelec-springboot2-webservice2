@@ -3,6 +3,7 @@ package com.jojoldu.book.springboot.web;
 import com.jojoldu.book.springboot.config.auth.LoginUser;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.domain.comments.Comments;
+import com.jojoldu.book.springboot.domain.posts.Posts;
 import com.jojoldu.book.springboot.service.Comments.CommentsService;
 import com.jojoldu.book.springboot.service.posts.PostsService;
 import com.jojoldu.book.springboot.web.dto.*;
@@ -51,6 +52,8 @@ public class IndexController {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
         model.addAttribute("userName", user.getName());
+
+        postsService.updateHit(id);
 
         try{
             List<CommentsListResponseDto> dto1 = commentsService.findAllDesc(id);
