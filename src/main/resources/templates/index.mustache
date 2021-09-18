@@ -74,4 +74,15 @@
 
 </div>
 
+<ul class="pagination justify-content-center">
+    {{#previous}}
+        <li class="page-item"><a class="page-link" href="/pagelist?num={{previous}}">이전</a></li>
+    {{/previous}}
+
+    {{#next}}
+        <li class="page-item"><a class="page-link" href="/pagelist?num={{next}}">다음</a></li>
+    {{/next}}
+
+</ul>
+
 {{>layout/footer}}

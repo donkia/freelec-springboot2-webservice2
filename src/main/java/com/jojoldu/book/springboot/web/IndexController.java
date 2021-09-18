@@ -39,8 +39,20 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user){
-        model.addAttribute("posts", postsService.findAllDesc());
+
+        int totCnt = postsService.findAllDesc().size();
+        //model.addAttribute("posts", postsService.findAllDesc());
+        model.addAttribute("posts", postsService.pagingfindAllDesc(0, 10));
+
+
+        model.addAttribute("previous", null);
+        if(0 < totCnt / 10)
+            model.addAttribute("next", 1);
+
         System.out.println("posts1 : " + postsService.findAllDesc());
+        System.out.println("totalCnt : " + postsService.findAllDesc().size());
+
+
         if(user!= null)
             model.addAttribute("userName", user.getName());
         return "index";
@@ -99,6 +111,33 @@ public class IndexController {
         if(user!= null)
             model.addAttribute("userName", user.getName());
         System.out.println("posts2 : " + posts.toString());
+
+        return "index";
+    }
+
+
+    @GetMapping("/pagelist")
+    public String pagelist(@RequestParam("num") long num, Model model, @LoginUser SessionUser user){
+
+        int totCnt = postsService.findAllDesc().size();
+        model.addAttribute("posts", postsService.pagingfindAllDesc(num*10, (num+1)*10));
+        System.out.println("paging posts(" + num+") : "  + postsService.pagingfindAllDesc(num, num+1));
+        model.addAttribute("num", num);
+
+        if(num > 0){
+            model.addAttribute("previous", num-1);
+        }
+        else if(num <= 0)
+            model.addAttribute("previous", null);
+
+        if(num < totCnt/ 10)
+            model.addAttribute("next", num+1);
+        else
+            model.addAttribute("next", null);
+
+
+        if(user!= null)
+            model.addAttribute("userName", user.getName());
 
         return "index";
     }
