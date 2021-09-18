@@ -42,7 +42,7 @@ public class IndexController {
 
         int totCnt = postsService.findAllDesc().size();
         //model.addAttribute("posts", postsService.findAllDesc());
-        model.addAttribute("posts", postsService.pagingfindAllDesc(0, 10));
+        model.addAttribute("posts", postsService.pagingfindAllDesc(0));
 
 
         model.addAttribute("previous", null);
@@ -120,8 +120,8 @@ public class IndexController {
     public String pagelist(@RequestParam("num") long num, Model model, @LoginUser SessionUser user){
 
         int totCnt = postsService.findAllDesc().size();
-        model.addAttribute("posts", postsService.pagingfindAllDesc(num*10, (num+1)*10));
-        System.out.println("paging posts(" + num+") : "  + postsService.pagingfindAllDesc(num, num+1));
+        model.addAttribute("posts", postsService.pagingfindAllDesc(num*10));
+        System.out.println("paging posts(" + num+") : "  + postsService.pagingfindAllDesc(num));
         model.addAttribute("num", num);
 
         if(num > 0){

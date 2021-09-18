@@ -81,8 +81,8 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostsListResponseDto> pagingfindAllDesc(long from, long to){
-        return postsRepository.pagingfindAllDesc(from, to).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
+    public List<PostsListResponseDto> pagingfindAllDesc(long from){
+        return postsRepository.pagingfindAllDesc(from).stream().map(Posts->new PostsListResponseDto(Posts.getId(), Posts.getTitle()
                         , Posts.getAuthor(), Posts.getModifiedDate(), Posts.getContent(), Posts.getCommentCnt(), Posts.getHit()))
                 .collect(Collectors.toList());
     }
