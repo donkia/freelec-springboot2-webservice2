@@ -21,7 +21,7 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     List<Posts> searchAuthorAllDesc(@Param("search") String search);
 
     //@Query(value = "select * from ( SELECT rownum as b, a.* FROM (SELECT * FROM posts order by id desc) a ) c where b between :from and :to", nativeQuery = true)
-    @Query(value="SELECT * FROM Posts p ORDER BY ID DESC limit 10 OFFSET :from" , nativeQuery = true)
+    @Query(value="SELECT * FROM posts p ORDER BY ID DESC limit 10 OFFSET :from" , nativeQuery = true)
     List<Posts> pagingfindAllDesc(@Param("from") long from);
 
 }
