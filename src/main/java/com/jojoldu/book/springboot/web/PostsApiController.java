@@ -1,14 +1,12 @@
 package com.jojoldu.book.springboot.web;
 
 import com.jojoldu.book.springboot.service.Comments.CommentsService;
-import com.jojoldu.book.springboot.service.EmailService;
 import com.jojoldu.book.springboot.service.posts.PostsService;
 import com.jojoldu.book.springboot.service.posts.PostsUpdateRequestDto;
 import com.jojoldu.book.springboot.web.dto.CommentsSaveRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
