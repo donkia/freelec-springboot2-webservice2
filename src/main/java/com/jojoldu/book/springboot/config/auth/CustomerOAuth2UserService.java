@@ -4,6 +4,8 @@ import com.jojoldu.book.springboot.config.auth.dto.OAuthAttributes;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.domain.user.User;
 import com.jojoldu.book.springboot.domain.user.UserRepository;
+import com.jojoldu.book.springboot.service.loginhistory.LoginhistroyService;
+import com.jojoldu.book.springboot.web.dto.LoginhistoryRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -23,6 +25,8 @@ public class CustomerOAuth2UserService implements OAuth2UserService<OAuth2UserRe
 
     private final UserRepository userRepository;
     private final HttpSession httpSession;
+    private final LoginhistroyService loginhistroyService;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -47,6 +51,9 @@ public class CustomerOAuth2UserService implements OAuth2UserService<OAuth2UserRe
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
+
+        //로그인 내역 저장
+        loginhistroyService.save(new LoginhistoryRequestDto(user.getEmail(), "", user.getRole().toString(), "login"));
         return userRepository.save(user);
     }
 }

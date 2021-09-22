@@ -1,0 +1,48 @@
+{{>layout/header}}
+
+<h1> 관리자페이지 </h1>
+<div class="col-md-12">
+
+    <!-- 로그인 영역 -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/" role="button" class="btn btn-primary">메인으로</a>
+         </div>
+    </div>
+
+    <!-- 검색 기능-->
+    <br>
+
+
+    <br>
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal" table-bordered>
+        <thead class="thead-strong">
+        <tr>
+            <th>번호</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>구분</th>
+            <th>접속날짜</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#dto}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{email}}</td>
+                <td>{{role}}</td>
+                <td>{{value}}</td>
+                <td>{{modifiedDate}}</td>
+
+            </tr>
+
+        {{/dto}}
+
+        </tbody>
+
+    </table>
+
+</div>
+{{>layout/footer}}

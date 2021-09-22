@@ -11,6 +11,10 @@
             {{#userName}}
                 로그인 ID : <span id="user">{{userName}}</span>
                 <a href="/logout" class="btn btn-info active" role="button">Log out</a>
+                {{#ADMIN}}
+                    <a href="/admin/history" class="btn btn-info active" role="button">관리자페이지</a>
+                {{/ADMIN}}
+
             {{/userName}}
             {{^userName}}
                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
