@@ -18,7 +18,7 @@ public class AdminController {
 
     @GetMapping("/admin/history")
     public String loginHistory(Model model){
-
+        System.out.println("history 접근");
         List<LoginhistoryListResponseDto> dto = loginhistroyService.findAllDesc();
         model.addAttribute("dto", dto);
         System.out.println("dto : " + dto );
