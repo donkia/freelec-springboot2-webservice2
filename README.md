@@ -1,4 +1,4 @@
-# 스프링 부트와 AWS로 혼자 구현하는 웹서비스 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fgjbae1212%2Fhit-counter)](https://hits.seeyoufarm.com)
+# 스프링 부트와 AWS로 혼자 구현하는 웹서비스 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fdonkia%2Ffreelec-springboot2-webservice2&count_bg=%233D71C8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true)](https://hits.seeyoufarm.com)
  - '스프링 부트와 AWS로 혼자 구현하는 웹서비스' 도서 학습을 바탕으로 추가 기능 구현
 
 
